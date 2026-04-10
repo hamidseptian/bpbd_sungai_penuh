@@ -1,0 +1,71 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Laporan extends CI_Controller {
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        // $this->form_validation->CI = &$this;
+        $this->load->model([
+            'datatables_model'                         => 'datatables_model', 
+        ]);
+        
+        $id_hak_akses = $this->session->userdata('id_hak_akses'); 
+        //   if ($id_hak_akses!='2') {
+        //     redirect('auth/login/kick');
+           
+        // }
+    }
+
+
+
+
+
+
+ public function berita_acara($id_bencana, $id_penerima)
+    {
+      
+
+          $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            // "margin_left" => 5,
+            // "margin_right" => 5,
+            // "margin_top" => 10,
+            // "margin_bottom" => 15,
+            'orientation' => 'P',
+            'tempDir' => '/tmp'
+        ]);
+   // $mpdf->SetJS('this.print();');
+
+            $q = $this->db->query("SELECT  b.id_bencana, jb.nama_bencana, jb.kategori, b.tgl_kejadian, b.lokasi, b.keterangan, b.status, b.jam_kejadian, b.desa, b.kepala_desa from bencana b
+        left join jenis_bencana jb on b.id_jenis_bencana=jb.id_jenis_bencana where b.id_bencana='$id_bencana'")->row_array();
+
+            $q_penerima = $this->db->query("SELECT pb.*, pt.nama as petugas, pt.jabatan, pt.pangkat, pt.alamat as alamat_petugas, pt.nip,
+            d.nama_desa, d.kepala_desa 
+                from penerima_bantuan pb 
+                left join desa_terdampak d on pb.id_desa = d.id_desa 
+                left join petugas pt on d.id_petugas = pt.id_petugas 
+                where pb.id_penerima_bantuan='$id_penerima' 
+                 ")->row_array();
+
+
+            $q_item = $this->db->query("SELECT bb.*, jb.item, jb.satuan FROM bantuan_bencana bb 
+                left join jenis_bantuan jb on bb.id_jenis_bantuan = jb.id_jenis_bantuan
+                where id_bencana='$id_bencana'")->result_array();
+
+            
+            $data['bencana'] = $q;
+            $data['penerima'] = $q_penerima ;
+            $data['item'] = $q_item ;
+          $html = $this->load->view('user/operator/laporan/berita_acara', $data, true);
+        $mpdf->WriteHTML($html);
+
+
+        $mpdf->Output('Print.pdf', 'I');
+    }
+
+
+}
