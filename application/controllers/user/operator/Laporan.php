@@ -68,4 +68,21 @@ class Laporan extends CI_Controller {
     }
 
 
+ public function index()
+    {
+        $filter = $this->input->get('filter');
+        $blns  = date('m');
+        $thns  = date('Y');
+
+        if ($filter) {
+            $where = "WHERE month(tgl_kejadian) = '$blns' and ";
+        }else{
+        }
+          $q = $this->db->query("SELECT id_user,   id_hak_akses, nama, alamat, nohp, email,jabatan, foto, status, status_akses   from user where id_user ='$id_user' ")->result_array();
+
+        $data['hak_akses'] = $kumpul_ha;
+    
+
+        $this->template->load('template/user_adminlte','user/operator/dashboard/dashboard', $data);
+      }
 }
