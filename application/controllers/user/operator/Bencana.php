@@ -25,7 +25,7 @@ class Bencana extends CI_Controller {
 
     public function index()
     {
-        $data['judul'] = 'Master Data - Bencana';
+        $data['judul'] = 'Bencana';
         $data['breadchumb'] = ' <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#tambah">
                 Tambah Bencana
               </button>';
@@ -58,6 +58,16 @@ class Bencana extends CI_Controller {
     
             $id_penerima_bantuan = $this->input->post('id_penerima_bantuan');
             $q = $this->db->query("SELECT nama_file from penerima_bantuan_file where id_penerima_bantuan='$id_penerima_bantuan'")->result_array();
+            echo json_encode($q);
+    // $this->load->view('template/admin');
+  }
+  public function bantuan_diterima()
+  {
+    
+            $id_penerima_bantuan = $this->input->post('id_penerima_bantuan');
+            $q = $this->db->query("SELECT bdb.qty, jb.item, jb.kategori, jb.satuan from barang_diterima_bantuan bdb 
+                left join jenis_bantuan jb on bdb.id_jenis_bantuan = jb.id_jenis_bantuan
+                where bdb.id_penerima_bantuan='$id_penerima_bantuan'")->result_array();
             echo json_encode($q);
     // $this->load->view('template/admin');
   }
@@ -143,14 +153,12 @@ class Bencana extends CI_Controller {
     }
     public function simpan_bantuan(){
      
-     $qty = $this->input->post('qty');
      $id_bencana = $this->input->post('id_bencana');
      $id_jenis_bantuan = $this->input->post('id_jenis_bantuan');
 
      $data = [
         'id_bencana'=>$id_bencana,
         'id_jenis_bantuan'=>$id_jenis_bantuan,
-        'qty'=>$qty,
      ];
      $this->db->insert('bantuan_bencana', $data);
       $this->session->set_flashdata('pesan','<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Data Bantuan Bencana Disimpan</div>');
@@ -280,6 +288,7 @@ class Bencana extends CI_Controller {
     $alamat      = $this->input->post('alamat');
     $nohp        = $this->input->post('nohp');
     $desa        = $this->input->post('desa');
+   
 
     // 🔥 PERBAIKAN: hilangkan spasi di key array
     $data_insert = [
@@ -294,6 +303,31 @@ class Bencana extends CI_Controller {
     // Simpan ke tabel utama
     $this->db->insert('penerima_bantuan', $data_insert);
     $id_penerima = $this->db->insert_id(); // ambil ID
+
+
+    $id_item        = $this->input->post('id_item');
+    $qty        = $this->input->post('qty');
+    $kumpul_barang_diterima_bantuan = [];
+    foreach ($qty as $k => $v) {
+        $qty_insert = $v;
+        $id_jenis_bantuan = $id_item[$k];
+        echo $id_jenis_bantuan.' - '.$v.'<br>';
+        if ($v!='') {
+            $data = [ 
+                'id_penerima_bantuan'=> $id_penerima,
+                'id_bencana'=> $id_bencana,
+                'id_jenis_bantuan'=>$id_jenis_bantuan,
+                'qty'=> $qty_insert,
+        ];
+        array_push($kumpul_barang_diterima_bantuan, $data);
+        }
+    }
+
+    if (count($kumpul_barang_diterima_bantuan)> 0 ) {
+        $this->db->insert_batch('barang_diterima_bantuan', $kumpul_barang_diterima_bantuan);
+    }
+
+
 
     // =========================
     // 🚀 PROSES MULTIPLE UPLOAD

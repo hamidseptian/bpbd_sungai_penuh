@@ -52,9 +52,9 @@ class Laporan extends CI_Controller {
                  ")->row_array();
 
 
-            $q_item = $this->db->query("SELECT bb.*, jb.item, jb.satuan FROM bantuan_bencana bb 
-                left join jenis_bantuan jb on bb.id_jenis_bantuan = jb.id_jenis_bantuan
-                where id_bencana='$id_bencana'")->result_array();
+            $q_item = $this->db->query("SELECT bdb.qty, jb.item, jb.kategori, jb.satuan from barang_diterima_bantuan bdb 
+                left join jenis_bantuan jb on bdb.id_jenis_bantuan = jb.id_jenis_bantuan
+                where bdb.id_penerima_bantuan='$id_penerima'")->result_array();
 
             
             $data['bencana'] = $q;
@@ -68,21 +68,56 @@ class Laporan extends CI_Controller {
     }
 
 
+ public function detail($id_bencana)
+    {
+      
+
+          $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            // "margin_left" => 5,
+            // "margin_right" => 5,
+            // "margin_top" => 10,
+            // "margin_bottom" => 15,
+            'orientation' => 'P',
+            'tempDir' => '/tmp'
+        ]);
+
+            $data['item'] = '' ;
+          $html = $this->load->view('user/operator/laporan/detail', $data, true);
+        $mpdf->WriteHTML($html);
+
+
+        $mpdf->Output('Print.pdf', 'I');
+    }
+
+
  public function index()
     {
+
+        $data['judul'] = 'Laporan Bencana';
+          $data['breadchumb'] = ' <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter_harian">
+                Filter Harian
+              </button> <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter_bulanan">
+                Filter Bulanan
+              </button> <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter_tahunan">
+                Filter Tahunan
+              </button>';
         $filter = $this->input->get('filter');
         $blns  = date('m');
         $thns  = date('Y');
 
         if ($filter) {
-            $where = "WHERE month(tgl_kejadian) = '$blns' and ";
+            $where = "";
         }else{
+            $where = "WHERE month(b.tgl_kejadian) = '$blns' and  year(b.tgl_kejadian) = '$thns'";
         }
-          $q = $this->db->query("SELECT id_user,   id_hak_akses, nama, alamat, nohp, email,jabatan, foto, status, status_akses   from user where id_user ='$id_user' ")->result_array();
+          $q = $this->db->query("SELECT  b.id_bencana, jb.nama_bencana, jb.kategori, b.tgl_kejadian, b.lokasi, b.keterangan, b.status, b.jam_kejadian from bencana b
+        left join jenis_bencana jb on b.id_jenis_bencana=jb.id_jenis_bencana $where")->result_array();
 
-        $data['hak_akses'] = $kumpul_ha;
+        $data['bencana'] = $q;
     
 
-        $this->template->load('template/user_adminlte','user/operator/dashboard/dashboard', $data);
+        $this->template->load('template/user_adminlte','user/operator/laporan/index', $data);
       }
 }

@@ -74,7 +74,11 @@
               </button>
               </div>
             </div>
-
+          <?php if (count($desa)==0) { ?>
+            <div class="box-body" style="overflow-x: scroll">
+              <div class="alert alert-info">Belum ada data</div>
+            </div>
+          <?php }else{ ?>
           <div class="box-body" style="overflow-x: scroll">
             <table class="table table-striped table-bordered">
               <tr>
@@ -99,7 +103,7 @@
             <?php } ?>
             </table>
           </div>
-
+        <?php } ?>
 
         </div>
 
@@ -117,28 +121,30 @@
               </div>
             </div>
 
+          <?php if (count($item_bantuan)==0) { ?>
+            <div class="box-body" style="overflow-x: scroll">
+              <div class="alert alert-info">Belum ada data</div>
+            </div>
+          <?php }else{ ?>
           <div class="box-body" style="overflow-x: scroll">
             <table class="table table-striped table-bordered">
               <tr>
                 <td>Kategori</td>
                 <td>Item</td>
-                <td>Qty</td>
                 <td>Option</td>
               </tr>  
             <?php foreach ($item_bantuan as $k => $v) { ?>
               <tr>
                 <td><?php echo $v['kategori'] ?></td>
                 <td><?php echo $v['item'] ?></td>
-                <td><?php echo $v['qty'].' '.$v['satuan'] ?></td>
                  <td>
-                  <a href="javascript:void(0)" class="btn btn-default btn-xs">Edit</a>
                   <a href="<?php echo base_url('user/operator/bencana/hapus_barang/'.$v['id_bantuan'].'/'.$v['id_bencana']) ?>" onclick="return confirm('Hapus item <?php echo $v['item'] ?> pada bencana <?php echo $bencana['nama_bencana'] ?> ')" class="btn btn-info btn-xs">Hapus</a>
                 </td>
               </tr>
             <?php } ?>
             </table>
           </div>
-
+        <?php } ?>
 
         </div>
       </div>
@@ -164,24 +170,28 @@
 
 
 
-
+         <?php if (count($desa)==0 || count($item_bantuan)==0) { ?>
+            <div class="box-body" style="overflow-x: scroll">
+              <div class="alert alert-info">Mohon untuk mengisi data desan dan data bantuan disalurkan terlebih dahulu</div>
+            </div>
+          <?php }else{ ?>
         <div class="box-body">
               <div class="form-group">
                 <label>NIK</label>
-                <input type="text" class="form-control" name="nik">
+                <input type="text" class="form-control" name="nik" required>
                 <input type="hidden" class="form-control" name="id_bencana" value="<?php echo $bencana['id_bencana'] ?>">
               </div>
               <div class="form-group">
                 <label>Nama</label>
-                <input type="text" class="form-control" name="nama">
+                <input type="text" class="form-control" name="nama" required>
               </div>
               <div class="form-group">
                 <label>Alamat</label>
-                <input type="text" class="form-control" name="alamat">
+                <input type="text" class="form-control" name="alamat" required>
               </div>
               <div class="form-group">
                 <label>No HP</label>
-                <input type="text" class="form-control" name="nohp">
+                <input type="text" class="form-control" name="nohp" required>
               </div>
               <div class="form-group">
                 <label>Asal Desa</label>
@@ -195,22 +205,40 @@
 
 
               <div class="form-group">
-                <label>No HP</label>
+                <label>Dokumentasi</label>
                 <input type="file" class="form-control" name="file[]" multiple>
+              </div>
+            
+
+              <div class="form-group">
+                <label>Bantuan</label>
+                <table class="table">
+                  <tr>
+                    <th>Barang</th>
+                    <th>Jumlah</th>
+                  </tr>
+                     <?php foreach ($item_bantuan as $k => $v) { ?>
+              <tr>
+                <td><?php echo $v['kategori'] ?> - <?php echo $v['item'] ?></td>
+                <td>
+                  <input type="hidden" class="form-control" name="id_item[]" id="id_item" value="<?php echo $v['id_jenis_bantuan'] ?>">
+                  <input type="text" class="form-control" name="qty[]" id="qty" placeholder="masukan jumlah bantuan (<?php echo $v['satuan'] ?>)"></td>
+                
+              </tr>
+            <?php } ?>
+                </table>
               </div>
             
          
 
 
         </div>
-
-
-
        <div class="box-footer">
               <button class="btn btn-block btn-info btn-sm">Simpan</button>
-
-            
             </div>
+      <?php } ?>
+
+
 
 
 
@@ -232,10 +260,15 @@
 
 
 
-
+           <?php if (count($desa)==0) { ?>
+            <div class="box-body" style="overflow-x: scroll">
+              <div class="alert alert-info">Belum ada data</div>
+            </div>
+          <?php }else{ ?>
         <div class="box-body" style="overflow-x: scroll">
-          <table class="table table-striped table-bordered" id="">
-            <tr>
+          <table class="table table-striped table-bordered"  id="tabel1">
+           <thead>
+              <tr>
               <td>No</td>
               <td>Nama</td>
               <td>Alamat</td>
@@ -243,6 +276,8 @@
               <td>Asal Desa</td>
               <td>Option</td>
             </tr>  
+
+           </thead>
             <?php foreach ($penerima as $k => $v) { 
               $id_penerima = $v['id_penerima_bantuan'];
               
@@ -256,15 +291,17 @@
                  
             
                   <td>
-                    <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#dokumentasi" onclick="dokumentasi(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">File</a></td>
-                  <td><a href="<?php echo base_url('user/operator/laporan/berita_acara/'.$v['id_bencana'].'/'.$id_penerima) ?>" class="btn btn-info btn-xs">Print BA</a></td>
+                    <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#dokumentasi" onclick="dokumentasi(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Dokumentasi</a>
+                    <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#bantuan_diterima" onclick="bantuan_diterima(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Bantuan Diterima</a>
+                    <a href="<?php echo base_url('user/operator/laporan/berita_acara/'.$v['id_bencana'].'/'.$id_penerima) ?>" class="btn btn-info btn-xs">Print BA</a>
+                  </td>
                 </tr>  
             <?php } ?>
           </table>
 
 
         </div>
-
+<?php } ?>
 
       </div>
     </div>
@@ -368,6 +405,41 @@
         </div>
     </form>
 
+  <form action="<?php echo base_url('user/operator/bencana/simpanedit') ?>" method='post' id='xxxx'> 
+  <div class="modal fade" id="bantuan_diterima">
+      
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Bantuan <span id="nama_penerima"></span></h4>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Kategori</th>
+                      <th>Item</th>
+                      <th>Jumlah</th>
+                    </tr>
+                  </thead>
+                  <tbody  id="list_bantuan"></tbody>
+                </table>
+               
+               
+        
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+    </form>
+
 
     <form action="<?php echo base_url('user/operator/bencana/simpan_desa') ?>" method='post' id='xxxx'> 
   <div class="modal fade" id="tambah_desa">
@@ -439,12 +511,7 @@
                             <?php } ?>
                           </select>
               </div>
-                <div class="form-group">
-                  <label>Jumlah</label>
-                  <input type="text" class="form-control" name="qty" id="qty" required>
-                </div>
               
-
 
 
 
@@ -553,6 +620,40 @@ function dokumentasi(id_penerima_bantuan, nama_penerima)
                  $.each(data, function(k,v){
                   console.log(v);
                   $('#dokumentasi').find('#list_gambar').append(`<div class="col-md-4"><img src="`+url+ v.nama_file +`" width="100%"></div>`);
+
+                 });
+              },
+              error : function(){
+              }
+            });
+          }
+      
+
+function bantuan_diterima(id_penerima_bantuan, nama_penerima)
+  {
+   
+                  $('#bantuan_diterima').find('#list_bantuan').html(``); 
+                  $('#bantuan_diterima').find('#nama_penerima').html('<br>' +nama_penerima); 
+            $.ajax(
+            {
+              url     : baseUrl('/user/operator/bencana/bantuan_diterima'),
+              dataType: 'JSON',
+              type    : 'POST',
+              data    : { 
+                id_penerima_bantuan : id_penerima_bantuan,
+                
+              },
+              success : function(data)
+              {
+                
+                 $.each(data, function(k,v){
+                 console.log(v);
+                  $('#bantuan_diterima').find('#list_bantuan').append(`
+                      <tr>
+                        <td>`+v.kategori+`</td>
+                        <td>`+v.item+`</td>
+                        <td>`+v.qty + ' '+ v.satuan+`</td>
+                      </tr>`);
 
                  });
               },

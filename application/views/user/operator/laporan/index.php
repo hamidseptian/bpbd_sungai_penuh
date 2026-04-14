@@ -30,16 +30,10 @@
                 <td><?php echo $d1['lokasi'] ?></td>
                 <td><?php echo $d1['tgl_kejadian'].'<br>'.$d1['jam_kejadian'] ?></td>
                 <td>
-                 <a href="<?php echo base_url('user/operator/bencana/detail/'.$d1['id_bencana']) ?>" class="btn btn-default btn-xs">
-                Detail
+                 <a href="<?php echo base_url('user/operator/laporan/detail/'.$d1['id_bencana']) ?>" class="btn btn-default btn-xs">
+                Detail (langsung print)
               </a>
-                 <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#edit" onclick="edit('<?php echo $d1['id_bencana'] ?>')">
-                Edit
-              </button>
-                 <button type="button" class="btn btn-info btn-xs" onclick="hapus('<?php echo $d1['id_bencana'] ?>','<?php echo $d1['nama_bencana'] ?>')">
-                Hapus
-              </button>
-                 
+                
                 </td>
               </tr>
             <?php } ?>
