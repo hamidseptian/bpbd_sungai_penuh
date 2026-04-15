@@ -47,46 +47,27 @@
   </div>
 
 
-  <div class="modal fade" id="tambah">
-    <form action="<?php echo base_url('user/operator/bencana/simpan') ?>" method='post'>  
+  <div class="modal fade" id="filter_harian">
+    <form action="<?php echo base_url('user/operator/laporan') ?>" method='get'>  
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Tambah Bencana</h4>
+                <h4 class="modal-title">Filter Harian</h4>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Kategori</label>
-                  <select class="form-control" name="kategori">
-                    <?php
-                    foreach ($kategori as $k => $v) { ?>
-                      <option value="<?php echo $v['id_jenis_bencana'] ?>"><?php echo $v['kategori'].' - '.$v['nama_bencana'] ?></option>
-                    <?php } ?>
-                  </select>
+                  <label>Tanggal</label>
+                  <input type="hidden" class="form-control" name="filter" value="harian">
+                  <input type="date" class="form-control" name="tgl" required value="<?php echo date('Y-m-d') ?>">
                 </div>
-                <div class="form-group">
-                  <label>Keterangan</label>
-                  <textarea class="form-control" name="ket" required rows="7"></textarea>
-                </div>
-                <div class="form-group">
-                  <label>Tgl Kejadian</label>
-                  <input type="date" class="form-control" name="tgl" required>
-                </div>
-                <div class="form-group">
-                  <label>Jam Kejadian</label>
-                  <input type="time" class="form-control" name="jam" required>
-                </div>
-                <div class="form-group">
-                  <label>Lokasi Kejadian</label>
-                  <input type="text" class="form-control" name="lokasi" required>
-                </div>
+       
              
             </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Filter</button>
               </div>
           </div>
       </div>
@@ -94,141 +75,77 @@
         </div>
 
 
-  <div class="modal fade" id="edit">
-    <form action="<?php echo base_url('user/operator/bencana/simpanedit') ?>" method='post' id='xxxx'> 
-      
+
+  <div class="modal fade" id="filter_tahunan">
+    <form action="<?php echo base_url('user/operator/laporan') ?>" method='get'>  
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Bencana</h4>
+                <h4 class="modal-title">Filter Tahunan</h4>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <input type="hidden" class="form-control" name="id_bencana" id="id_bencana">
-                  <input type="hidden" class="form-control" name="page" id="page" value="index">
-                  <label>Kategori</label>
-                  <select class="form-control" name="kategori" id="kategori">
-                    <?php
-                    foreach ($kategori as $k => $v) { ?>
-                      <option value="<?php echo $v['id_jenis_bencana'] ?>"><?php echo $v['kategori'].' - '.$v['nama_bencana'] ?></option>
+                  <label>Tahun</label>
+                  <input type="hidden" class="form-control" name="filter" value="tahunan">
+                  <select name="tahun" class="form-control">
+                    <?php for ($i =date('Y') ; $i > 2020 ; $i--) { ?>
+                      <option><?php echo $i ?></option>
                     <?php } ?>
                   </select>
                 </div>
-
-                <div class="form-group">
-                  <label>Keterangan</label>
-                  <textarea class="form-control" name="ket" id="ket" required rows="7"></textarea>
-                </div>
-                <div class="form-group">
-                  <label>Tgl Kejadian</label>
-                  <input type="date" class="form-control" name="tgl" id="tgl" required>
-                </div>
-                <div class="form-group">
-                  <label>Jam Kejadian</label>
-                  <input type="time" class="form-control" name="jam" id="jam" required>
-                </div>
-                <div class="form-group">
-                  <label>Lokasi Kejadian</label>
-                  <input type="text" class="form-control" name="lokasi" id="lokasi" required>
-                </div>
-               
-
-              </div>
+       
+             
+            </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Filter</button>
               </div>
-            </div>
-            
           </div>
+      </div>
     </form>
         </div>
 
 
 
 
-<script>
-  
-
-function hapus(id_bencana, bencana)
-  {
-    Swal.fire({
-        title: 'Warning',
-        html: 'Nonaktifkan Jenis barang '+bencana+' .?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Nonaktifkan',
-        cancelButtonText: 'Batal'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax(
-            {
-              url     : baseUrl('/user/operator/bencana/hapus'),
-              type    : 'POST',
-              data    : { 
-                id_bencana : id_bencana,
-                
-              },
-              success : function(data)
-              {
-                // alert('ew');
-                window.location.href=baseUrl('user/operator/bencana');
-              },
-              error : function(){
-                alert('ee');
-                
-              }
-            });
-      
-
-        
-        }
-      }); 
-  }
-
-
-
-function edit(id_bencana)
-  {
-    
-            $.ajax(
-            {
-              url     : baseUrl('/user/operator/bencana/edit'),
-              dataType: 'JSON',
-              type    : 'POST',
-              data    : { 
-                id_bencana : id_bencana,
-                
-              },
-              success : function(data)
-              {
-                  $('#edit').find('#id_bencana').val(id_bencana);
-                  $('#edit').find('#kategori').val(data.id_jenis_bencana).change();
-                  $('#edit').find('#tgl').val(data.tgl_kejadian);
-                  $('#edit').find('#jam').val(data.jam_kejadian);
-                  $('#edit').find('#lokasi').val(data.lokasi);
-                  $('#edit').find('#status').val(data.status).change();
-                  $('#edit').find('#ket').val(data.keterangan);
-                  $('#edit').find('#desa').val(data.desa);
-                  $('#edit').find('#kades').val(data.kepala_desa);
-              },
-              error : function(){
-              }
-            });
-          }
-      
-
-</script>
-
-
-
-
-
-
-
-
+  <div class="modal fade" id="filter_bulanan">
+    <form action="<?php echo base_url('user/operator/laporan') ?>" method='get'>  
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Filter Tahunan</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Bulan</label>
+                  <input type="hidden" class="form-control" name="filter" value="bulanan">
+                  <select name="bulan" class="form-control">
+                    <?php foreach(pilihan_bulan() as $k=>$v){  ?>
+                      <option value="<?php echo $k ?>"><?php echo $v ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Tahun</label>
+                  <select name="tahun" class="form-control">
+                    <?php for ($i =date('Y') ; $i > 2020 ; $i--) { ?>
+                      <option><?php echo $i ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+       
+             
+            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+              </div>
+          </div>
+      </div>
+    </form>
+        </div>
 

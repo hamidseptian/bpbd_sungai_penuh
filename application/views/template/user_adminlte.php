@@ -175,8 +175,8 @@ if ($this->session->userdata('login')!=true) {
             <li><a href="<?php echo base_url('user/admin/petugas') ?>" style="color:aqua"><i class="fa fa-circle-o"></i> Data Petugas</a></li>
           <?php }else{ ?>
         <li class="header">Menu</li>
-            <li><a href="<?php echo base_url('user/operator/bencana') ?>" style="color:orange"><i class="fa fa-circle-o"></i> Bencana</a></li>
-            <li><a href="<?php echo base_url('user/operator/laporan') ?>" style="color:grey"><i class="fa fa-circle-o"></i> Laporan</a></li>
+            <li><a href="<?php echo base_url('user/operator/bencana') ?>" style="color:aqua"><i class="fa fa-circle-o"></i> Bencana</a></li>
+            <li><a href="<?php echo base_url('user/operator/laporan') ?>" style="color:yellow"><i class="fa fa-circle-o"></i> Laporan</a></li>
         <?php } ?>
         
     

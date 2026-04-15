@@ -96,11 +96,11 @@ class Laporan extends CI_Controller {
     {
 
         $data['judul'] = 'Laporan Bencana';
-          $data['breadchumb'] = ' <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter_harian">
+          $data['breadchumb'] = ' <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#filter_harian">
                 Filter Harian
-              </button> <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter_bulanan">
+              </button> <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#filter_bulanan">
                 Filter Bulanan
-              </button> <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter_tahunan">
+              </button> <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#filter_tahunan">
                 Filter Tahunan
               </button>';
         $filter = $this->input->get('filter');
@@ -108,7 +108,21 @@ class Laporan extends CI_Controller {
         $thns  = date('Y');
 
         if ($filter) {
-            $where = "";
+            if ($filter=='harian') {
+                $tgl = $this->input->get('tgl');
+                $where = "WHERE b.tgl_kejadian = '$tgl'";
+                # code...
+            }
+            if ($filter=='tahunan') {
+                $tahun = $this->input->get('tahun');
+                $where = "WHERE year(b.tgl_kejadian) = '$tahun'";
+                # code...
+            }else{
+                $bulan = $this->input->get('bulan');
+                $tahun = $this->input->get('tahun');
+                $where = "WHERE month(b.tgl_kejadian) = '$bulan' and  year(b.tgl_kejadian) = '$tahun'";
+
+            }
         }else{
             $where = "WHERE month(b.tgl_kejadian) = '$blns' and  year(b.tgl_kejadian) = '$thns'";
         }
