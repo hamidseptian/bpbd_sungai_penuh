@@ -83,7 +83,13 @@ class Laporan extends CI_Controller {
             'tempDir' => '/tmp'
         ]);
 
-            $data['item'] = '' ;
+            $q_bantuan = $this->db->query("SELECT bb.*, jb.item, jb.satuan from bantuan_bencana bb left join jenis_bantuan jb on bb.id_jenis_bantuan = jb.id_jenis_bantuan where id_bencana = '$id_bencana'");
+            $q_bencana = $this->db->query("SELECT jb.nama_bencana, b.lokasi from bencana b left join jenis_bencana jb on b.id_jenis_bencana = jb.id_jenis_bencana where id_bencana = '$id_bencana'");
+            $q_penerima = $this->db->query("SELECT pb.*, d.nama_desa  from penerima_bantuan pb left join desa_terdampak  d on pb.id_desa=d.id_desa where pb.id_bencana = '$id_bencana'")->result_array();
+            $data['item'] = $q_bantuan->result_array() ;
+            $data['bencana'] = $q_bencana->row_array() ;
+            $data['penerima'] = $q_penerima ;
+            $data['jumlah_item'] = $q_bantuan->num_rows() ;
           $html = $this->load->view('user/operator/laporan/detail', $data, true);
         $mpdf->WriteHTML($html);
 

@@ -48,14 +48,17 @@ $tahun   = date('Y');
             border-collapse: collapse;
             /*margin: 15px 0;*/
         }
-        table{
-            font-size:13px;
+        table {
+    font-size: 10px;
+    width: 100%;
+    border-collapse: collapse;  /* pindahkan ke sini */
+}
 
-        }
-        .tabel_barang th, td {
-            border: 1px solid #000;
-            border-collapse: collapse;
-        }
+th, td {
+    border: 1px solid #000;
+    padding: 4px 8px;           /* tambahkan padding */
+    text-align: center;          /* opsional */
+}
         
 
 
@@ -94,7 +97,39 @@ $tahun   = date('Y');
 <div style="clear:both"></div>
 <div class="kop-line"></div>
 <div class="judul">
-    <h4>Coming Soon</h4>
-    <!-- <p style="margin-top:0px"><b>NOMOR: 300.2.1. /    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     / Bahan Bangunan-BPBD / 2025</b></p> -->
+    Daftar penerima bantuan <br>Bencana <?php echo $bencana['nama_bencana'].' di '.$bencana['lokasi'] ?>
+  
 </div>
+
+<table class="table">
+    <tr>    
+        <th rowspan="2">No</th>
+        <th rowspan="2">Nama</th>
+        <th rowspan="2">Alamat</th>
+        <th rowspan="2">Desa</th>
+        <th colspan="<?php echo $jumlah_item ?>">Bantuan</th>
+    </tr>
+    <tr>
+        <?php foreach ($item as $k => $v) { ?>
+        <th><?php echo $v['item'] ?></th>
+        <?php } ?>
+    </tr>
+
+    <?php foreach ($penerima as $k => $v) { 
+         $id_penerima = $v['id_penerima_bantuan'];?>
+        <tr>    
+            <td></td>
+            <td><?php echo $v['nama'] ?></td>
+            <td><?php echo $v['alamat'] ?></td>
+            <td><?php echo $v['nama_desa'] ?></td>
+              <?php foreach ($item as $k => $v_item) { 
+                $id_item =$v_item['id_jenis_bantuan'];
+               
+                $q = $this->db->query("SELECT qty from barang_diterima_bantuan where id_penerima_bantuan='$id_penerima' and id_jenis_bantuan = '$id_item'")->row_array();
+                ?>
+                <td><?php  echo $q['qty'] == '' ? '' : $q['qty']; ?></td>
+                <?php } ?>
+        </tr>
+    <?php } ?>
+</table>
 
