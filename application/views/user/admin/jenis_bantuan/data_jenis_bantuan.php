@@ -138,12 +138,12 @@ function hapus(id_jenis_bantuan, jenis_bantuan)
   {
     Swal.fire({
         title: 'Warning',
-        html: 'Nonaktifkan Jenis barang '+jenis_bantuan+' .?',
+        html: 'Hapus Jenis barang '+jenis_bantuan+' .?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Nonaktifkan',
+        confirmButtonText: 'Hapus',
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {

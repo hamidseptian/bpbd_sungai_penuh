@@ -57,7 +57,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Tambah Jenis barang</h4>
+                <h4 class="modal-title">Tambah Petugas</h4>
               </div>
               <div class="modal-body">
               
@@ -108,13 +108,13 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Tambah Jenis barang</h4>
+                <h4 class="modal-title">Edit Petugas</h4>
               </div>
               <div class="modal-body">
               
                 <div class="form-group">
                   <label>NIP</label>
-                  <input type="text" class="form-control" name="id_petugas" id="id_petugas" required>
+                  <input type="hidden" class="form-control" name="id_petugas" id="id_petugas" required>
                   <input type="text" class="form-control" name="nip" id="nip" required>
                 </div>
                 <div class="form-group">
@@ -161,12 +161,12 @@ function hapus(id_petugas, petugas)
   {
     Swal.fire({
         title: 'Warning',
-        html: 'Nonaktifkan petugas '+petugas+' .?',
+        html: 'Hapus petugas '+petugas+' .?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Nonaktifkan',
+        confirmButtonText: 'Hapus',
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {

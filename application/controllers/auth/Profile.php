@@ -16,6 +16,17 @@ class Profile extends CI_Controller {
 	     $id_user = $this->session->userdata('id_user');
 	     $user = $this->db->query("SELECT * from user u left join hak_akses ha on u.id_hak_akses = ha.id_hak_akses where u.id_user = '$id_user'")->row_array();
 		$data['judul'] = "Ubah Password";
+
+		 $q_ha = $this->db->query("SELECT id_hak_akses, nama_hak_akses  from hak_akses")->result_array();
+        $kumpul_ha = [];
+        foreach ($q_ha as $k => $v) { 
+          $kumpul_ha[$v['id_hak_akses']] = $v['nama_hak_akses'];
+        }
+
+
+        $data['hak_akses'] = $kumpul_ha;
+
+        
 		$data['user'] = $user;
 		$this->template->load('template/user_adminlte','user/user/akun/edit_password', $data);
 	}
@@ -46,14 +57,13 @@ class Profile extends CI_Controller {
                			if ($password_baru==$password_baru_konfirm) {
                				$update = $this->db->update('user',['password'=>password_hash($password_baru, PASSWORD_DEFAULT)], ['id_user'=>$id_user]);
                			  $this->session->set_flashdata('pesan','<div class="alert alert-success">Berhasil mengubah login.!</div>');
-		                   redirect('/user/user/dashboard');
+		                   redirect('/user/operator/dashboard');
                				
                			}else{ 
                				$this->session->set_flashdata('pesan','<div class="alert alert-danger">Gagal mengubah login.!<br>konfirmasi password baru tidak cocok</div>');
 		                   redirect('auth/profile/update_password');
 							
                			}
-               			  // $this->session->set_flashdata('pesan','<div class="alert alert-danger">Gagal mengubah login.!<br>Password lama salah<br>Silahkan masukan password yang benar<br>'.json_encode($cek_password).'</div>');
                			
                		}else{
                			  $this->session->set_flashdata('pesan','<div class="alert alert-danger">Gagal mengubah login.!<br>Password lama salah<br>Silahkan masukan password yang benar</div>');

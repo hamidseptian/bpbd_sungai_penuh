@@ -117,20 +117,24 @@ class Laporan extends CI_Controller {
             if ($filter=='harian') {
                 $tgl = $this->input->get('tgl');
                 $where = "WHERE b.tgl_kejadian = '$tgl'";
+                $data['judul'] .= '<br><small>Tanggal '.$tgl.'</small>';
                 # code...
             }
-            if ($filter=='tahunan') {
+            else if ($filter=='tahunan') {
                 $tahun = $this->input->get('tahun');
                 $where = "WHERE year(b.tgl_kejadian) = '$tahun'";
+                $data['judul'] .= '<br><small>Tahun '.$tahun.'</small>';
                 # code...
             }else{
                 $bulan = $this->input->get('bulan');
                 $tahun = $this->input->get('tahun');
                 $where = "WHERE month(b.tgl_kejadian) = '$bulan' and  year(b.tgl_kejadian) = '$tahun'";
+                $data['judul'] .= '<br><small>Bulan '.nama_bulan($bulan).' Tahun '.$tahun.'</small>';
 
             }
         }else{
             $where = "WHERE month(b.tgl_kejadian) = '$blns' and  year(b.tgl_kejadian) = '$thns'";
+            $data['judul'] .= '<br><small>Bulan '.nama_bulan($blns).' Tahun '.$thns.'</small>';
         }
           $q = $this->db->query("SELECT  b.id_bencana, jb.nama_bencana, jb.kategori, b.tgl_kejadian, b.lokasi, b.keterangan, b.status, b.jam_kejadian from bencana b
         left join jenis_bencana jb on b.id_jenis_bencana=jb.id_jenis_bencana $where")->result_array();
