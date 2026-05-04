@@ -26,30 +26,42 @@
                             <div class="slick-slider">
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
-                                        <!-- <div class="slide-img-bg" style="background-image: url('<?php echo base_url('assets/gambar') ?>/1.jpeg');"></div> -->
-                                        <div class="slider-content"><h3>Perfect Balance</h3>
-                                            <p>ArchitectUI is like a dream. Some think it's too good to be true! Extensive collection of unified React Boostrap Components and Elements.</p></div>
+                                        <div class="slide-img-bg" style="background-image: url('<?php echo base_url('file/banner/1.jpeg') ?>');"></div>
+                                        <div class="slider-content">
+                                            <p>Selamat datang di website</p>
+                                            <h3>BPBD Kota Sungai Penuh</h3>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
-                                        <!-- <div class="slide-img-bg" style="background-image: url('<?php echo base_url('assets/gambar') ?>/2.jpeg');"></div> -->
-                                        <div class="slider-content"><h3>Scalable, Modular, Consistent</h3>
-                                            <p>Easily exclude the components you don't require. Lightweight, consistent Bootstrap based styles across all elements and components</p></div>
-                                    </div>
+                                        <div class="slide-img-bg" style="background-image: url('<?php echo base_url('file/banner/2.jpeg') ?>');"></div>
+
+                                        <div class="slider-content">
+                                            <p>Selamat datang di website</p>
+                                            <h3>BPBD Kota Sungai Penuh</h3>
+                                        </div>
+                                        </div>
+                                    
                                 </div>
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-sunny-morning" tabindex="-1">
-                                        <!-- <div class="slide-img-bg" style="background-image: url('<?php echo base_url('assets/gambar') ?>/3.jpeg');"></div> -->
-                                        <div class="slider-content"><h3>Complex, but lightweight</h3>
-                                            <p>We've included a lot of components that cover almost all use cases for any type of application.</p></div>
+                                        <div class="slide-img-bg" style="background-image: url('<?php echo base_url('file/banner/3.jpeg') ?>');"></div>
+                                        
+                                        <div class="slider-content">
+                                            <p>Selamat datang di website</p>
+                                            <h3>BPBD Kota Sungai Penuh</h3>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
-                                        <!-- <div class="slide-img-bg" style="background-image: url('<?php echo base_url('assets/gambar') ?>/4.jpeg');"></div> -->
-                                        <div class="slider-content"><h3>Scalable, Modular, Consistent</h3>
-                                            <p>Easily exclude the components you don't require. Lightweight, consistent Bootstrap based styles across all elements and components</p></div>
+                                        <div class="slide-img-bg" style="background-image: url('<?php echo base_url('file/banner/4.jpeg') ?>');"></div>
+                                        
+                                        <div class="slider-content">
+                                            <p>Selamat datang di website</p>
+                                            <h3>BPBD Kota Sungai Penuh</h3>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

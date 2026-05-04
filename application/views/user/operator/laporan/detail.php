@@ -110,7 +110,18 @@ th, td {
         <th colspan="<?php echo $jumlah_item ?>">Bantuan</th>
     </tr>
     <tr>
-        <?php foreach ($item as $k => $v) { ?>
+        <?php 
+        $kumpul_total = [];
+        foreach ($item as $k => $v) { 
+             $data = [
+            'id_jenis_bantuan' =>$v['id_jenis_bantuan'],
+            'nilai' => [],
+
+           ];
+           $kumpul_total[$k] = $data;
+
+
+           ?>
         <th><?php echo $v['item'] ?></th>
         <?php } ?>
     </tr>
@@ -122,14 +133,25 @@ th, td {
             <td><?php echo $v['nama'] ?></td>
             <td><?php echo $v['alamat'] ?></td>
             <td><?php echo $v['nama_desa'] ?></td>
-              <?php foreach ($item as $k => $v_item) { 
+              <?php foreach ($item as $k_item => $v_item) { 
                 $id_item =$v_item['id_jenis_bantuan'];
                
                 $q = $this->db->query("SELECT qty from barang_diterima_bantuan where id_penerima_bantuan='$id_penerima' and id_jenis_bantuan = '$id_item'")->row_array();
+
+                // $kumpul_total[$k_item]['nilai'] = $q['qty'];
+
+                  array_push($kumpul_total[$k_item]['nilai'], $q['qty']);
+
                 ?>
-                <td><?php  echo $q['qty'] == '' ? '' : $q['qty']; ?></td>
+                <td><?php  echo $q['qty'] == '' ? '-' : $q['qty']; ?></td>
                 <?php } ?>
         </tr>
     <?php } ?>
-</table>
+    <tr>
+        <th colspan="4">Total</th>
+          <?php foreach ($item as $k => $v) { ?>
+        <th><?php echo array_sum($kumpul_total[$k]['nilai']) ?> </th>
+        <?php } ?>
 
+    </tr>
+</table>

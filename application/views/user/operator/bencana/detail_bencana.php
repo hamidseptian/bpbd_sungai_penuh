@@ -96,7 +96,7 @@
                 <td><?php echo $v['kepala_desa'] ?></td>
                 <td><?php echo $v['nama'] ?></td>
                 <td>
-                  <a href="javascript:void(0)" class="btn btn-default btn-xs">Edit</a>
+                  <!-- <a href="javascript:void(0)" class="btn btn-default btn-xs">Edit</a> -->
                   <a href="<?php echo base_url('user/operator/bencana/hapus_desa/'.$v['id_desa'].'/'.$v['id_bencana']) ?>" onclick="return confirm('Hapus desa <?php echo $v['nama_desa'] ?> pada bencana <?php echo $bencana['nama_bencana'] ?> ')" class="btn btn-info btn-xs">Hapus</a>
                 </td>
               </tr>
@@ -294,6 +294,8 @@
                     <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#dokumentasi" onclick="dokumentasi(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Dokumentasi</a>
                     <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#bantuan_diterima" onclick="bantuan_diterima(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Bantuan Diterima</a>
                     <a href="<?php echo base_url('user/operator/laporan/berita_acara/'.$v['id_bencana'].'/'.$id_penerima) ?>" class="btn btn-info btn-xs">Print BA</a>
+
+                  <a href="<?php echo base_url('user/operator/bencana/hapus_penerima/'.$id_penerima.'/'.$v['id_bencana']) ?>" onclick="return confirm('Hapus penerima <?php echo $v['nama'] ?>dari penerima bantuan pada bencana <?php echo $bencana['nama_bencana'] ?> ')" class="btn btn-info btn-xs">Hapus</a>
                   </td>
                 </tr>  
             <?php } ?>

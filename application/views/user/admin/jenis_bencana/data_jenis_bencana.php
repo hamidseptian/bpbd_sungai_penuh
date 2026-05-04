@@ -86,7 +86,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Jenis barang</h4>
+                <h4 class="modal-title">Edit Jenis Bencana</h4>
               </div>
               <div class="modal-body">
                 <div class="form-group">
@@ -125,7 +125,7 @@ function hapus(id_jenis_bencana, jenis_bencana)
   {
     Swal.fire({
         title: 'Warning',
-        html: 'Hapus Jenis barang '+jenis_bencana+' .?',
+        html: 'Hapus Jenis Bencana '+jenis_bencana+' .?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

@@ -95,7 +95,7 @@ $tahun   = date('Y');
 <div class="kop-line"></div>
 <div class="judul">
     <h4>BERITA ACARA SERAH TERIMA BARANG</h4>
-    <p style="margin-top:0px"><b>NOMOR: 300.2.1. /    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     / Bahan Bangunan-BPBD / 2025</b></p>
+    <p style="margin-top:0px"><b>NOMOR: 300.2.1. /    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     / Bahan Bangunan-BPBD / <?php echo ($bencana['tahun_bencana']) ?></b></p>
 </div>
 
 

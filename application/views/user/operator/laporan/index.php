@@ -30,8 +30,8 @@
                 <td><?php echo $d1['lokasi'] ?></td>
                 <td><?php echo $d1['tgl_kejadian'].'<br>'.$d1['jam_kejadian'] ?></td>
                 <td>
-                 <a href="<?php echo base_url('user/operator/laporan/detail/'.$d1['id_bencana']) ?>" class="btn btn-default btn-xs">
-                Detail (langsung print)
+                 <a href="<?php echo base_url('user/operator/laporan/detail/'.$d1['id_bencana']) ?>" class="btn btn-info btn-xs">
+                Detail
               </a>
                 
                 </td>

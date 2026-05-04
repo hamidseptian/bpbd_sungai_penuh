@@ -162,12 +162,12 @@ function hapus(id_bencana, bencana)
   {
     Swal.fire({
         title: 'Warning',
-        html: 'Nonaktifkan Jenis barang '+bencana+' .?',
+        html: 'Hapus Bencana '+bencana+' .?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Nonaktifkan',
+        confirmButtonText: 'Hapus',
         cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {

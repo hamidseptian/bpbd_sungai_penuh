@@ -218,6 +218,19 @@ class Bencana extends CI_Controller {
         
     }
 
+    public function hapus_penerima($id_penerima, $id_bencana)
+    {
+            // $id_penerima = $this->input->post('id_penerima');
+            $q = $this->db->query("DELETE FROM penerima_bantuan where id_penerima_bantuan='$id_penerima'");
+            $q = $this->db->query("DELETE FROM penerima_bantuan_file where id_penerima_bantuan='$id_penerima'");
+            $q = $this->db->query("DELETE FROM barang_diterima_bantuan where id_penerima_bantuan='$id_penerima'");
+            $this->session->set_flashdata('pesan','<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Data penerima dihapus</div>');
+
+            redirect('user/operator/bencana/detail/'.$id_bencana);
+            
+        
+    }
+
 
     public function hapus_barang($id_item, $id_bencana)
     {
@@ -368,7 +381,8 @@ class Bencana extends CI_Controller {
             } else {
                 // Kalau gagal upload
                 echo $this->upload->display_errors();
-                return;
+
+                // return;
             }
         }
     }

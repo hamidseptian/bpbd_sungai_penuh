@@ -40,7 +40,7 @@ class Laporan extends CI_Controller {
         ]);
    // $mpdf->SetJS('this.print();');
 
-            $q = $this->db->query("SELECT  b.id_bencana, jb.nama_bencana, jb.kategori, b.tgl_kejadian, b.lokasi, b.keterangan, b.status, b.jam_kejadian, b.desa, b.kepala_desa from bencana b
+            $q = $this->db->query("SELECT  b.id_bencana, jb.nama_bencana, jb.kategori, b.tgl_kejadian, b.lokasi, b.keterangan, b.status, year(b.tgl_kejadian) as tahun_bencana, b.jam_kejadian, b.desa, b.kepala_desa from bencana b
         left join jenis_bencana jb on b.id_jenis_bencana=jb.id_jenis_bencana where b.id_bencana='$id_bencana'")->row_array();
 
             $q_penerima = $this->db->query("SELECT pb.*, pt.nama as petugas, pt.jabatan, pt.pangkat, pt.alamat as alamat_petugas, pt.nip,
