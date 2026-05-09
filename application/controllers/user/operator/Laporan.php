@@ -36,7 +36,7 @@ class Laporan extends CI_Controller {
             // "margin_top" => 10,
             // "margin_bottom" => 15,
             'orientation' => 'P',
-            // 'tempDir' => '/tmp'
+            'tempDir'     => FCPATH . 'tmp', // ✅ fo
         ]);
    // $mpdf->SetJS('this.print();');
 

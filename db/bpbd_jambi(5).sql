@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 14, 2026 at 02:05 PM
+-- Generation Time: May 09, 2026 at 03:17 PM
 -- Server version: 8.0.30
 -- PHP Version: 7.3.28
 
@@ -46,7 +46,8 @@ INSERT INTO `bantuan_bencana` (`id_bantuan`, `id_bencana`, `id_jenis_bantuan`, `
 (8, '8', '12', 0),
 (9, '8', '11', 0),
 (10, '8', '5', 0),
-(11, '8', '7', 0);
+(11, '8', '7', 0),
+(12, '2', '4', 0);
 
 -- --------------------------------------------------------
 
@@ -69,8 +70,6 @@ CREATE TABLE `barang_diterima_bantuan` (
 --
 
 INSERT INTO `barang_diterima_bantuan` (`id_barang_diterima_bantuan`, `id_penerima_bantuan`, `id_bencana`, `id_jenis_bantuan`, `kategori`, `item`, `qty`) VALUES
-(1, '1', '6', '5', '', '', 2),
-(2, '1', '6', '7', '', '', 4),
 (3, '2', '6', '12', '', '', 1),
 (4, '2', '6', '5', '', '', 2),
 (5, '2', '6', '6', '', '', 3),
@@ -79,7 +78,17 @@ INSERT INTO `barang_diterima_bantuan` (`id_barang_diterima_bantuan`, `id_penerim
 (8, '4', '8', '12', '', '', 5),
 (9, '4', '8', '11', '', '', 3),
 (10, '4', '8', '5', '', '', 2),
-(11, '4', '8', '7', '', '', 4);
+(11, '4', '8', '7', '', '', 4),
+(12, '5', '2', '4', '', '', 2),
+(13, '6', '2', '4', '', '', 2),
+(14, '7', '2', '4', '', '', 21),
+(15, '8', '2', '4', '', '', 21),
+(16, '9', '6', '12', '', '', 1),
+(17, '9', '6', '5', '', '', 1),
+(18, '10', '6', '12', '', '', 1),
+(19, '10', '6', '6', '', '', 1),
+(20, '11', '8', '12', '', '', 9),
+(21, '11', '8', '5', '', '', 8);
 
 -- --------------------------------------------------------
 
@@ -253,18 +262,25 @@ CREATE TABLE `penerima_bantuan` (
   `alamat` text NOT NULL,
   `nohp` varchar(25) NOT NULL,
   `id_petugas` varchar(5) NOT NULL,
-  `id_desa` varchar(5) NOT NULL
+  `id_desa` varchar(5) NOT NULL,
+  `file_ba` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `penerima_bantuan`
 --
 
-INSERT INTO `penerima_bantuan` (`id_penerima_bantuan`, `id_bencana`, `nik`, `nama`, `alamat`, `nohp`, `id_petugas`, `id_desa`) VALUES
-(1, '6', '', '', '', '', '', '12'),
-(2, '6', '23534532', 'Syamsinur', 'Maransi kampus', '643532', '', '13'),
-(3, '8', '213423423', 'Udin', 'Padang', '2353453', '', '14'),
-(4, '8', '32432', 'Jon', 'Padang', '325235', '', '14');
+INSERT INTO `penerima_bantuan` (`id_penerima_bantuan`, `id_bencana`, `nik`, `nama`, `alamat`, `nohp`, `id_petugas`, `id_desa`, `file_ba`) VALUES
+(2, '6', '23534532', 'Syamsinur', 'Maransi kampus', '643532', '', '13', ''),
+(3, '8', '213423423', 'Udin', 'Padang', '2353453', '', '14', ''),
+(4, '8', '32432', 'Jon', 'Padang', '325235', '', '14', '202605091001.pdf'),
+(5, '2', '12312', 'Hamid', 'Maransi', '07532432', '', '9', ''),
+(6, '2', 'asd', 'dsa', 'asd', 'dsa', '', '9', ''),
+(7, '2', 'asd', 'sadasdsd', 'das', 'das', '', '10', ''),
+(8, '2', 'asd', 'sadasdsd', 'das', 'das', '', '10', ''),
+(9, '6', '324', '234', '234', '234', '', '13', ''),
+(10, '6', '3593428', 'vsjn', 'djicn', 'ndsvj', '', '12', ''),
+(11, '8', '2e29', 'hoh', 'ouuodbd', 'uqbd', '', '14', '202605091007.pdf');
 
 -- --------------------------------------------------------
 
@@ -292,7 +308,14 @@ INSERT INTO `penerima_bantuan_file` (`id`, `id_penerima_bantuan`, `nama_file`) V
 (7, '4', 'd0cd89083b811c351eabc735a81a72ad.png'),
 (8, '4', '69037c6ea26804cc54f9467b3f1050cb.png'),
 (9, '4', '41b7fa9633e1b671a79b7b1dfec432ad.png'),
-(10, '4', '457fac7070fa5f873e407f85cce970f5.png');
+(10, '4', '457fac7070fa5f873e407f85cce970f5.png'),
+(11, '5', '3cc90086fdda8e426a2d7d02bcbed868.png'),
+(12, '6', '67bc46e43b157912613da92d63f59134.png'),
+(13, '6', 'fe1bfbc098e8ff0cdcef74c0c6449eba.png'),
+(14, '8', '158542072ec354ea8dbc9d820b70ea1d.png'),
+(15, '9', 'e7872941c4b43081490435547dd30330.png'),
+(16, '9', '56c1aa15f6c6803ceaf994dd755b036b.png'),
+(17, '10', '2461e6d4f77b5dfe75b5d7d1ad13ca35.png');
 
 -- --------------------------------------------------------
 
@@ -348,7 +371,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `id_hak_akses`, `nama`, `alamat`, `nohp`, `email`, `jabatan`, `foto`, `username`, `password`, `status`, `status_akses`) VALUES
 (87, '3', 'Noviora Afrian', 'Jambi', '-', '-', 'Staff', '202604060755.jpg', 'yora', '$2y$10$OYLk/xFbcOkmJTQBKLzhx.IO4dlC3QOMdn.wCd/hxe4YDExKH0wBi', '1', '1'),
-(88, '4', 'Hamid', 'Padang', '0214124', '-', 'Staff', '', 'hamid', '$2y$10$oZ73ClX0/uVpGORM7klv/e1Ov.J78QYzKJPNWm3Y.s7T7aV5N6eii', '1', '1');
+(88, '4', 'Hamid', 'Padang', '0214124', '-', 'Staff', '', 'hamid', '$2y$10$Cr2aeWeyAvVopE6qMPibU.oSU4bsfmr36VgcwOK1Ys/EBasq98qfC', '1', '1');
 
 --
 -- Indexes for dumped tables
@@ -434,13 +457,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bantuan_bencana`
 --
 ALTER TABLE `bantuan_bencana`
-  MODIFY `id_bantuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_bantuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `barang_diterima_bantuan`
 --
 ALTER TABLE `barang_diterima_bantuan`
-  MODIFY `id_barang_diterima_bantuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_barang_diterima_bantuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `bencana`
@@ -482,13 +505,13 @@ ALTER TABLE `kategori_bantuan`
 -- AUTO_INCREMENT for table `penerima_bantuan`
 --
 ALTER TABLE `penerima_bantuan`
-  MODIFY `id_penerima_bantuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_penerima_bantuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `penerima_bantuan_file`
 --
 ALTER TABLE `penerima_bantuan_file`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `petugas`

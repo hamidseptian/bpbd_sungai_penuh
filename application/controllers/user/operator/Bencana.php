@@ -245,53 +245,42 @@ class Bencana extends CI_Controller {
 
 
 
+  public function simpan_ba()
+        {
+                
+        $new_file_name=date("Ymdhis");
+        $nama_file = $_FILES['berkas']['name'] ;
+        $pecah = explode(".", $nama_file);
+        $extensi = end($pecah);
+        $new_file_name=date("Ymdhi").'.'.$extensi;
+        $config['file_name']            = $new_file_name;
+        $config['upload_path']   = './file/berita_acara/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size']      = 2048;
 
 
-    // public function simpan_penerima_bantuan()
-    // {
-    //     $nik = $this->input->post('nik');
-    //     $id_bencana = $this->input->post('id_bencana');
-    //     $nama = $this->input->post('nama');
-    //     $alamat = $this->input->post('alamat');
-    //     $nohp = $this->input->post('nohp');
-    //     $petugas = $this->input->post('petugas');
-       
-      
-    //         $data_insert = [
-    //             ' id_bencana'=>$id_bencana,
-    //             'nik'=>$nik,
-    //             'nama'=>$nama,
-    //             'alamat'=>$alamat,
-    //             'nohp'=>$nohp,
-    //             'id_petugas '=>$petugas,
-              
-    //         ];
 
-        
+        $id_bencana = $this->input->post('id_bencana');
+        $id_penerima_bantuan = $this->input->post('id_penerima_bantuan');
+        $nama = $this->input->post('nama');
 
-    //     $this->db->insert('penerima_bantuan', $data_insert);
-    //     $id_penerima = $this->db->insert_id();
+                $this->load->library('upload', $config);
 
-    //     $item = $this->input->post('item');
-    //     $qty = $this->input->post('qty');
-        
-    //     $kumpul_item = [];
-    //     for ($i=0; $i < count($item) ; $i++) { 
-    //         $pecah = explode('|', $item[$i]);
-    //         $data = [
-    //             'id_penerima_bantuan'=>$id_penerima,
-    //             'id_bencana'=>$id_bencana,
-    //             'kategori'=>$pecah[0],
-    //             'item'=>$pecah[1],
-    //             'qty '=>$qty[$i],
-    //         ];
-    //         array_push($kumpul_item, $data);
-    //     }
+                if ( ! $this->upload->do_upload('berkas'))
+                {
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('pesan','<div class="alert alert-info">Gagal menyimpan berita acara<br>'.$error.'</div>');
 
-    //     $this->db->insert_batch('barang_diterima_bantuan', $kumpul_item);
-    //     redirect('user/operator/bencana/detail/'.$id_bencana);
-    // }
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+                        $this->db->update('penerima_bantuan', ['file_ba'=>$new_file_name],['id_penerima_bantuan'=>$id_penerima_bantuan]);
+                        $this->session->set_flashdata('pesan','<div class="alert alert-info">Berita acara atas nama <b>'.$nama.'</b> disimpan</div>');
 
+                }
+                redirect('user/operator/bencana/detail/'.$id_bencana);
+        }
 
     public function simpan_penerima_bantuan_new()
 {

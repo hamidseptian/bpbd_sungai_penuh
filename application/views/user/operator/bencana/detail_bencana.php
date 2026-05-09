@@ -291,11 +291,16 @@
                  
             
                   <td>
-                    <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#dokumentasi" onclick="dokumentasi(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Dokumentasi</a>
-                    <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#bantuan_diterima" onclick="bantuan_diterima(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Bantuan Diterima</a>
-                    <a href="<?php echo base_url('user/operator/laporan/berita_acara/'.$v['id_bencana'].'/'.$id_penerima) ?>" class="btn btn-info btn-xs">Print BA</a>
+                    <a href="javascript:void(0)" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#dokumentasi" onclick="dokumentasi(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Dokumentasi</a>
+                    <a href="javascript:void(0)" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#bantuan_diterima" onclick="bantuan_diterima(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>')">Bantuan Diterima</a>
+                    <a href="<?php echo base_url('user/operator/laporan/berita_acara/'.$v['id_bencana'].'/'.$id_penerima) ?>" class="btn btn-success btn-xs">BA</a>
+                    <?php if ($v['file_ba']=='') { ?>
+                    <a href="javascript:void(0)" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#upload_ba" onclick="ba_ttd(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>','<?php echo $v['file_ba'] ?>')">BA TTD </a>
+                    <?php }else{ ?>
+                    <a href="javascript:void(0)" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#upload_ba" onclick="ba_ttd(<?php echo $v['id_penerima_bantuan'] ?>,'<?php echo $v['nama'] ?>','<?php echo $v['file_ba'] ?>')">BA TTD </a>
+                  <?php } ?>
 
-                  <a href="<?php echo base_url('user/operator/bencana/hapus_penerima/'.$id_penerima.'/'.$v['id_bencana']) ?>" onclick="return confirm('Hapus penerima <?php echo $v['nama'] ?>dari penerima bantuan pada bencana <?php echo $bencana['nama_bencana'] ?> ')" class="btn btn-info btn-xs">Hapus</a>
+                  <a href="<?php echo base_url('user/operator/bencana/hapus_penerima/'.$id_penerima.'/'.$v['id_bencana']) ?>" onclick="return confirm('Hapus penerima <?php echo $v['nama'] ?>dari penerima bantuan pada bencana <?php echo $bencana['nama_bencana'] ?> ')" class="btn btn-success btn-xs">Hapus</a>
                   </td>
                 </tr>  
             <?php } ?>
@@ -394,6 +399,33 @@
               </div>
               <div class="modal-body">
                 <div class="row"  id="list_gambar"></div>
+               
+        
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+    </form>
+
+  <form action="<?php echo base_url('user/operator/bencana/simpan_ba') ?>" method='post' id='xxxx' enctype="multipart/form-data"> 
+  <div class="modal fade" id="upload_ba">
+      
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Berita Acara <span id="nama_penerima"></span></h4>
+              </div>
+              <div class="modal-body">
+
+                      <input type="hidden" class="form-control" name="id_bencana" value="<?php echo $bencana['id_bencana'] ?>"> 
+                <div class="row"  id="pdf_ba"></div>
                
         
 
@@ -628,6 +660,33 @@ function dokumentasi(id_penerima_bantuan, nama_penerima)
               error : function(){
               }
             });
+          }
+      
+function ba_ttd(id_penerima_bantuan, nama_penerima, file)
+  {
+    $('#upload_ba').find('#pdf_ba').html(`<div class="col-md-12">
+                      <div class="alert alert-info">Berita acara belum di upload</div>
+                      </div>`);
+                  // $('#upload_ba').find('#pdf_ba').html(``); 
+                  $('#upload_ba').find('#nama_penerima').html('<br>' +nama_penerima); 
+                  if (file=='') {
+                    $('#upload_ba').find('#pdf_ba').html(`<div class="col-md-12">
+                      <div class="alert alert-info">Berita acara belum di upload</div>
+                      <label>Upload File Berita Acara</label>
+                      <input type="hidden" class="form-control" name="id_penerima_bantuan" value="`+id_penerima_bantuan+`"> 
+                      <input type="hidden" class="form-control" name="nama" value="`+nama_penerima+`"> 
+                      <input type="file" class="form-control" name="berkas" required=""> <br>
+<button class="btn btn-info">Upload Berita Acara</button>
+                      </div>`);
+
+                  }else{
+                    $('#upload_ba').find('#pdf_ba').html(`<div class="col-md-12">
+                      <iframe src="<?php echo base_url('file/berita_acara/') ?>`+file+`" width="100%" height="500px"></iframe>
+                      <a href="<?php echo base_url('file/berita_acara/') ?>`+file+`" class="btn btn-info btn-xs">Lihat full screen</a>
+                      </div>`);
+
+                  }
+         
           }
       
 
