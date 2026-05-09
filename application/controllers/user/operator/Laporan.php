@@ -80,7 +80,7 @@ class Laporan extends CI_Controller {
             // "margin_top" => 10,
             // "margin_bottom" => 15,
             'orientation' => 'P',
-            // 'tempDir' => '/tmp'
+            'tempDir'     => FCPATH . 'tmp', // ✅ fo
         ]);
 
             $q_bantuan = $this->db->query("SELECT bb.*, jb.item, jb.satuan from bantuan_bencana bb left join jenis_bantuan jb on bb.id_jenis_bantuan = jb.id_jenis_bantuan where id_bencana = '$id_bencana'");
