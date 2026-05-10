@@ -246,7 +246,7 @@ if ($this->session->userdata('login')!=true) {
     <div class="pull-right hidden-xs">
       <!-- <b>Version</b> 2.4.18 -->
     </div>
-    <strong>Copyright &copy; 2025. BPBD Provinsi Jambi. Template By  <a href="javascript:void(0)">AdminLTE</a>. Development By  <a href="https://www.instagram.com/hamidseptian" target="_blank">Hamid Septian</a>.</strong>
+    <strong>Copyright &copy; 2026. BPBD Sungai Penuh.</strong>
   </footer>
 
   <!-- Control Sidebar -->
