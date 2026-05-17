@@ -156,7 +156,7 @@ Pada hari ini tanggal <?= $tanggal ?> bulan <?= $bulan ?> tahun <?= $tahun ?>, k
 <p>Selanjutnya disebut <b>PIHAK KEDUA</b>.</p>
 
 <p>
-    Dengan ini PIHAK KEDUA menyerahkan kepada PIHAK PERTAMA berupa barang sebagai berikut:
+    Dengan ini pihak kedua menyerah kan bahan baku bangunan bencana <?php echo  $bencana['nama_bencana'] ?>    kepada pihak pertama berupa barang sebagai berikut
 </p>
 
 <table class="tabel_barang">
