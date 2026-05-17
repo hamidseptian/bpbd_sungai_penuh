@@ -107,6 +107,7 @@ th, td {
         <th rowspan="2">Nama</th>
         <th rowspan="2">Alamat</th>
         <th rowspan="2">Desa</th>
+        <th rowspan="2">Tgl Kejadian</th>
         <th colspan="<?php echo $jumlah_item ?>">Bantuan</th>
     </tr>
     <tr>
@@ -133,6 +134,7 @@ th, td {
             <td><?php echo $v['nama'] ?></td>
             <td><?php echo $v['alamat'] ?></td>
             <td><?php echo $v['nama_desa'] ?></td>
+            <td><?php echo show_tanggal($bencana['tgl_kejadian']) ?></td>
               <?php foreach ($item as $k_item => $v_item) { 
                 $id_item =$v_item['id_jenis_bantuan'];
                
@@ -148,7 +150,7 @@ th, td {
         </tr>
     <?php } ?>
     <tr>
-        <th colspan="4">Total</th>
+        <th colspan="5">Total</th>
           <?php foreach ($item as $k => $v) { ?>
         <th><?php echo array_sum($kumpul_total[$k]['nilai']) ?> </th>
         <?php } ?>
